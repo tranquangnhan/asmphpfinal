@@ -2,17 +2,16 @@
 <?php 
     ob_start();
     session_start();
-    include_once '../view/template/header.php';
     include "../model/connect.php";
     include "../model/user.php";
     if(isset($_POST['login'])&&($_POST['login'])){
         $user = $_POST['user'];
         $pass = $_POST['pass'];
         $checkuser = checkUser($user,$pass);
-        
         if(is_array($checkuser)){
-            $_SESSION['sid']= $checkuser['id'];
+            $_SESSION['sid'] = $checkuser['id'];
             $_SESSION['suser']= $checkuser['user'];
+            $_SESSION['role'] = $checkuser['role'];
             if($checkuser['role'] == 1) {
                 header('location: admin.php');
             }
@@ -30,40 +29,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>products</title>
-    <link rel="stylesheet" href="../view/css/singleproduct.css">
-
+    <title>login</title>
+    <link rel="stylesheet" href="../view/admin/css/login.admin.css">
 </head>
 
 <body>
-    <main>
-        <div class="boxbanner">
-            <h1>Single Product Page</h1>
-            <ul>
-                <li><a href="">Home <i class="fa fa-angle-right"></i></a>
-                </li>
-                <li><a href=""> Single Product</a></li>
-            </ul>
-        </div>
-        <div class="boxcenter2">
+    <div class="boxbanner">
+        <div class="login-container">
+            <h3>LOGIN</h3>
             <form action="login.php" method="post">
-                <input type="text" placeholder="Username" name="user">
-                <input type="password" placeholder="Password" name="pass">
+                <label for="user">Username</label>
+                <input type="text" id="user" placeholder="Nhập Username..." name="user">
+                <label for="pass">Password</label>
+                <input type="password" id="pass" placeholder="Nhập Password..."name="pass">
                 <input type="submit" value="Login" name="login">
+                <div><a href="">Forget Password ?</a><span><a href=""> Click Here</a></span></div>
             </form>
-            <?php
-                if(isset($canhbao)&&$canhbao != ''){
-                    echo $canhbao;
-                }
-            
-            
-            ?>
+            <?php if(isset($canhbao)&&($canhbao)) echo $canhbao ?>
         </div>
-    </main>
 
+    </div>
 </body>
 
 </html>
-<?php
-        include_once '../view/template/footer.php';
-?> 

@@ -6,6 +6,7 @@
     include_once '../view/template/header.php';
     include_once '../global.php'; 
     include_once '../model/categories.php';
+
     $products1 = showSanPham(0,5);// 0 là sắp xếp sản phẩm thường - 5 là limit 5
     $products2 = showSanPham(1,5); // 1 là sắp xếp sản phẩm orderby theo id - 5 là limit 5
     $sapnhap1 = showSapNhap(0); // 0 là sản phẩm sắp nhập sắp xếp thường
@@ -35,25 +36,23 @@
                 }
                 include '../view/shop.php';
                     break;
-            case 'blogs':
-                include '../view/blog.php';
-                break;
             case 'user':
-                //đăng ký 
-
-                //đăng nhập
-
-                //thoát
                 if(isset($_GET['logout'])&&($_GET['logout'])){
-                    unset($_SESSION['sid']);
-                    unset($_SESSION['suser']);
-                    header('location: index.php');
+                    if($_GET['logout']==1){
+                        unset($_SESSION['sid']);
+                        unset($_SESSION['suser']);
+                        header('location: index.php');
+                    }
                 }
                 include '../view/blog.php';
+                    break;
+            case 'login':
+                    include '../view/login.user.php';
                     break;
             case 'contact':
                 include '../view/contact.php';
                 break;
+          
             default:
                 include '../view/home.php';
                 break;

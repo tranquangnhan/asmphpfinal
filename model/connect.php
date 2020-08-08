@@ -12,5 +12,20 @@ function connect(){
       echo "Connection failed: " . $e->getMessage();
     }
 }
-
+function result1($fe,$sql){
+    $sql = $sql;
+    $conn = connect();
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    switch ($fe) {
+        case 0:
+            return $stmt->fetchAll(); 
+            break;
+        case 1:
+            return $stmt->fetch(); 
+            break;
+  
+    }
+  }
 ?>
